@@ -1,0 +1,63 @@
+
+Check versions installed
+
+winget list --name ".NET"
+
+Installer commands
+
+.\windowsdesktop-runtime-6.0.36-win-x86.exe /install /quiet /norestart
+
+.\windowsdesktop-runtime-6.0.36-win-x86.exe /uninstall /quiet /norestart
+
+
+Testing commands
+
+Test Manually
+.\Invoke-AppDeployToolkit.exe
+.\Invoke-AppDeployToolkit.exe "uninstall"
+
+
+No Welcome, but shows progress
+.\Invoke-AppDeployToolkit.exe -DeploymentType "install" -DeployMode "NonInteractive"
+.\Invoke-AppDeployToolkit.exe -DeploymentType "install" -DeployMode "NonInteractive"
+
+
+No Welcome, No Progress
+.\Invoke-AppDeployToolkit.exe -DeploymentType "install" -DeployMode "Silent"
+.\Invoke-AppDeployToolkit.exe -DeploymentType "uninstall" -DeployMode "Silent"
+
+No Welcome, but shows progress
+.\Invoke-AppDeployToolkit.exe -DeploymentType "install" -DeployMode "Interactive"
+.\Invoke-AppDeployToolkit.exe -DeploymentType "uninstall" -DeployMode "Interactive"
+
+
+x64 Detection Script
+
+If([Version](Get-ItemPropertyValue -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{0532b8f2-12d7-43de-95fc-7b87006758a8}','HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\{0532b8f2-12d7-43de-95fc-7b87006758a8}' -Name DisplayVersion -ea SilentlyContinue) -ge '6.0.36.34217') {
+Write-Host "Installed"
+Exit 0
+}
+else {
+Exit 1
+}
+
+
+
+
+X86 Detection Script
+
+If([Version](Get-ItemPropertyValue -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{c37854d7-1852-4785-82ff-86ff988e4caf}','HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\{c37854d7-1852-4785-82ff-86ff988e4caf}' -Name DisplayVersion -ea SilentlyContinue) -ge '6.0.36.34217') {
+Write-Host "Installed"
+Exit 0
+}
+else {
+Exit 1
+}
+
+
+
+
+
+
+
+
